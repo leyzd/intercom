@@ -2,23 +2,21 @@
 
 ![Logo](logo.png)
 
-Bot Telegram cerdas yang dibangun di atas Python untuk memantau data real-time dari berbagai jaringan blockchain (EVM) dan menyediakan informasi harga terkini secara instan.
+An intelligent Telegram bot built on Python to monitor real-time data from various blockchain networks (EVM) and provide instant price updates.
 
-## ✨ Fitur Utama
-* **Multi-Chain Support**: Cek harga ETH, BSC, Polygon, Arbitrum, dll.
-* **Blockchain Info**: Data harga Bitcoin dan grafik real-time.
-* **Auto-Reply**: Sistem echo responsif untuk interaksi user.
-* **Lightweight**: Berjalan mulus di environment mobile (Termux).
+## ✨ Key Features
+* **Multi-Chain Support**: Check prices for ETH, BSC, Polygon, Arbitrum, etc.
+* **Blockchain Info**: Real-time Bitcoin price data and charts.
+* **Auto-Reply**: Responsive echo system for user interaction.
+* **Lightweight**: Runs smoothly in mobile environments (Termux).
 
-## 🚀 Cara Instalasi
-1. Clone repository ini.
-2. Install library: `pip install pyTelegramBotAPI requests`
-3. Masukkan Token Bot Anda di `watcher.py`.
-4. Jalankan: `python watcher.py`
+## 🚀 Installation Instructions
+1. Clone this repository.
+2. Install the library: `pip install pyTelegramBotAPI requests`
+3. Enter your Bot Token in `watcher.py`.
+ 4. Run: `python watcher.py`
 
-## 📊 Perintah Bot
-* `/evm` - Menampilkan harga aset di berbagai jaringan EVM.
-* `/chart` - Mendapatkan link grafik blockchain real-time.
-* `/price` - Mengecek harga Bitcoin saat ini.
-
-
+## 📊 Bot Commands
+* `/evm` - Displays asset prices across various EVM networks.
+* `/chart` - Gets a link to a real-time blockchain chart.
+* `/price` - Checks the current Bitcoin price.
