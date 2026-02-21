@@ -1,83 +1,104 @@
 import telebot
+from telebot import types
 import requests
 import time
 
-# Masukkan Token Anda
+# --- KONFIGURASI TOKEN ---
 TOKEN = "8312255798:AAFw5c-tpU1EmVmiTokpx6E_gXYwX0drm3g"
+# API Key Moralis yang kamu dapatkan tadi
+MORALIS_API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub25jZSI6IjQyMzBlNjQ0LWQ2NGItNDQ1Mi04OGU5LTQwZjBiNGZhMzhlOCIsIm9yZ0lkIjoiNTAxNzU5IiwidXNlcklkIjoiNTE2Mjg0IiwidHlwZUlkIjoiYzZiYjA1NjUtMTQwYy00Y2U4LThlOGEtMzdjYzVmZDg0MTM5IiwidHlwZSI6IlBST0pFQ1QiLCJpYXQiOjE3NzE3MTQ1NTYsImV4cCI6NDkyNzQ3NDU1Nn0.ac2li2f39lRgyzABDY_IogUEcaJYXr4El-L4q6pNpx8"
+
 bot = telebot.TeleBot(TOKEN)
 
-# Daftar ID koin di CoinGecko untuk jaringan EVM
+# Daftar ID koin untuk Harga
 EVM_CHAINS = {
-    "eth": "ethereum",
-    "bsc": "binancecoin",
-    "polygon": "matic-network",
-    "arbitrum": "arbitrum",
-    "optimism": "optimism",
-    "base": "base",
-    "avax": "avalanche-2"
+    "eth": "ethereum", "bsc": "binancecoin", "polygon": "matic-network",
+    "arbitrum": "arbitrum", "optimism": "optimism", "base": "base", "avax": "avalanche-2"
 }
 
+# --- FUNGSI API ---
 def get_evm_prices():
     ids = ",".join(EVM_CHAINS.values())
     try:
-        # Menambahkan timeout agar script tidak menggantung jika koneksi lambat
         url = f"https://api.coingecko.com/api/v3/simple/price?ids={ids}&vs_currencies=usd&include_24hr_change=true"
         response = requests.get(url, timeout=10)
+        return response.json() if response.status_code == 200 else None
+    except: return None
+
+def get_wallet_balance(address, chain="eth"):
+    url = f"https://deep-index.moralis.io/api/v2/{address}/balance?chain={chain}"
+    headers = {"X-API-Key": MORALIS_API_KEY, "Content-Type": "application/json"}
+    try:
+        response = requests.get(url, headers=headers, timeout=10)
         if response.status_code == 200:
-            return response.json()
+            return int(response.json()['balance']) / 10**18
         return None
-    except Exception as e:
-        print(f"Error API: {e}")
-        return None
+    except: return None
 
-@bot.message_handler(commands=['price', 'evm'])
-def send_evm_prices(message):
-    bot.send_chat_action(message.chat.id, 'typing')
-    data = get_evm_prices()
+# --- HANDLER MENU UTAMA ---
+@bot.message_handler(commands=['start', 'menu'])
+def main_menu(message):
+    markup = types.InlineKeyboardMarkup(row_width=2)
+    btn1 = types.InlineKeyboardButton("📊 All Prices", callback_data="get_prices")
+    btn2 = types.InlineKeyboardButton("🔍 Wallet Tracker", callback_data="wallet_menu")
+    btn3 = types.InlineKeyboardButton("📈 Charts", callback_data="get_charts")
+    markup.add(btn1, btn2, btn3)
     
-    if not data:
-        bot.reply_to(message, "❌ Gagal mengambil data. Server API mungkin sedang sibuk, coba lagi nanti.")
+    welcome = "👋 **Welcome to TRAC NETWORK**\nSilakan pilih fitur di bawah ini:"
+    bot.send_message(message.chat.id, welcome, parse_mode="Markdown", reply_markup=markup)
+
+# --- CALLBACK HANDLER (Klik Tombol) ---
+@bot.callback_query_handler(func=lambda call: True)
+def handle_query(call):
+    if call.data == "get_prices":
+        data = get_evm_prices()
+        if not data:
+            bot.answer_callback_query(call.id, "API Error")
+            return
+        
+        text = "📊 **EVM NETWORK PRICES**\n\n"
+        for short, cg_id in EVM_CHAINS.items():
+            coin = data.get(cg_id, {})
+            price, change = coin.get('usd', 0), coin.get('usd_24h_change', 0)
+            text += f"{'🟢' if change >= 0 else '🔴'} **{short.upper()}**: `${price:,.2f}`\n"
+        
+        markup = types.InlineKeyboardMarkup().add(types.InlineKeyboardButton("⬅️ Back", callback_data="back_home"))
+        bot.edit_message_text(text, call.message.chat.id, call.message.message_id, parse_mode="Markdown", reply_markup=markup)
+
+    elif call.data == "wallet_menu":
+        text = "🔍 **Wallet Tracker**\n\nKetik perintah berikut di chat:\n`/wallet [alamat] [jaringan]`\n\nContoh:\n`/wallet 0x123... bsc`"
+        markup = types.InlineKeyboardMarkup().add(types.InlineKeyboardButton("⬅️ Back", callback_data="back_home"))
+        bot.edit_message_text(text, call.message.chat.id, call.message.message_id, parse_mode="Markdown", reply_markup=markup)
+
+    elif call.data == "back_home":
+        # Kembali ke menu utama
+        markup = types.InlineKeyboardMarkup(row_width=2)
+        markup.add(types.InlineKeyboardButton("📊 All Prices", callback_data="get_prices"),
+                   types.InlineKeyboardButton("🔍 Wallet Tracker", callback_data="wallet_menu"),
+                   types.InlineKeyboardButton("📈 Charts", callback_data="get_charts"))
+        bot.edit_message_text("Main Menu:", call.message.chat.id, call.message.message_id, reply_markup=markup)
+
+# --- COMMAND HANDLER KHUSUS WALLET ---
+@bot.message_handler(commands=['wallet'])
+def wallet_check(message):
+    parts = message.text.split()
+    if len(parts) < 2:
+        bot.reply_to(message, "❌ Gunakan: `/wallet [address] [chain]`")
         return
-
-    text = "📊 **Harga Jaringan EVM Terkini**\n\n"
-    for short_name, cg_id in EVM_CHAINS.items():
-        # Cek apakah koin ada di dalam data untuk menghindari KeyError 'usd'
-        coin_data = data.get(cg_id)
-        if coin_data and 'usd' in coin_data:
-            price = coin_data['usd']
-            change = coin_data.get('usd_24h_change', 0)
-            emoji = "📈" if change >= 0 else "📉"
-            # Format angka dengan koma (ribuan)
-            text += f"🔹 **{short_name.upper()}**: ${price:,.2f} ({emoji} {change:.2f}%)\n"
-        else:
-            text += f"🔹 **{short_name.upper()}**: Data tidak ditemukan\n"
     
-    text += "\n💡 *Gunakan /chart untuk melihat grafik.*"
-    bot.reply_to(message, text, parse_mode="Markdown")
-
-@bot.message_handler(commands=['chart'])
-def send_chart_info(message):
-    chart_text = (
-        "📈 **Link Grafik Blockchain**\n\n"
-        "Klik link di bawah untuk melihat chart real-time:\n\n"
-        "🔗 [BTC Chart](https://www.coingecko.com/en/coins/bitcoin)\n"
-        "🔗 [ETH Chart](https://www.coingecko.com/en/coins/ethereum)\n"
-        "🔗 [BSC Chart](https://www.coingecko.com/en/coins/binancecoin)\n"
-        "🔗 [POLYGON Chart](https://www.coingecko.com/en/coins/matic-network)"
-    )
-    bot.reply_to(message, chart_text, parse_mode="Markdown", disable_web_page_preview=False)
-
-@bot.message_handler(func=lambda message: True)
-def echo_all(message):
-    bot.reply_to(message, "Halo! Gunakan perintah berikut:\n/evm - Cek harga semua jaringan EVM\n/chart - Lihat grafik blockchain")
+    address = parts[1]
+    chain = parts[2].lower() if len(parts) > 2 else "eth"
+    
+    msg = bot.reply_to(message, f"⌛ Menghitung saldo {chain.upper()}...")
+    balance = get_wallet_balance(address, chain)
+    
+    if balance is not None:
+        text = f"👛 **Wallet Info**\nChain: `{chain.upper()}`\nBalance: **{balance:.4f}**"
+        bot.edit_message_text(text, message.chat.id, msg.message_id, parse_mode="Markdown")
+    else:
+        bot.edit_message_text("❌ Gagal. Pastikan Address/Chain benar.", message.chat.id, msg.message_id)
 
 if __name__ == "__main__":
-    print("Bot TRAC NETWORK Aktif...")
-    # Infinity polling dengan penanganan error koneksi otomatis
-    while True:
-        try:
-            bot.infinity_polling(timeout=10, long_polling_timeout=5)
-        except Exception as e:
-            print(f"Koneksi terputus: {e}. Mencoba lagi dalam 5 detik...")
-            time.sleep(5)
+    print("Bot TRAC Network (Dual Feature) Aktif...")
+    bot.infinity_polling()
 
