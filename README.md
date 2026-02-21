@@ -3,48 +3,72 @@ Trac addrrs>trac1zl3gu2jql3jwtcklnkq9qsu5u0hnvkm9pel2h4m0f7ylcfe43r7qlrvjtr
 
 
 
-# 🤖 TRAC NETWORK - Multi-Chain Intelligence Bot
-![Logo](logo.png)
+# <p align="center">🚀 TRAC NETWORK ULTIMATE BOT</p>
 
-> **All-in-One Telegram Assistant for Real-Time EVM Market Data & Wallet Portfolio Tracking.**
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.10%2B-blue?style=for-the-badge&logo=python&logoColor=white" />
+  <img src="https://img.shields.io/badge/Telegram-Bot-26A5E4?style=for-the-badge&logo=telegram&logoColor=white" />
+  <img src="https://img.shields.io/badge/Web3-Moralis-orange?style=for-the-badge&logo=web3.dot.js&logoColor=white" />
+  <img src="https://img.shields.io/badge/Maintained%3F-Yes-brightgreen?style=for-the-badge" />
+</p>
 
-TRAC Network is a cutting-edge Telegram bot that combines real-time market data with direct blockchain integration. Built to provide efficiency for traders and developers in monitoring the EVM ecosystem.
-
----
-
-## 🌟 Key Features (Double Engine)
-
-### 1. 📊 Market Intelligence (EVM Prices)
-Monitor price fluctuations across major networks instantly:
-* **Supported Networks**: Ethereum (ETH), Binance Smart Chain (BSC), Polygon (MATIC), Arbitrum, Optimism, Base, and Avalanche (AVAX).
-* **Accurate Data**: Direct integration with CoinGecko API.
- * **Visual Indicator**: Bullish/Bearish status with color indicators 🟢/🔴.
-
-### 2. 🔍 Portfolio Tracker (Wallet Check)
-Track your wallet balance directly from chat without opening Explorer:
-* **Multi-Chain Support**: Check native token balances across multiple chains.
-* **Moralis Web3 Integration**: Uses Moralis infrastructure for precise balance data.
-* **Quick Access**: Simply use the command `/wallet <address> <chain>`.
-
- ---
-
-## 🛠️ Technology Stack
-
-* **Backend**: Python 3.12
-* **Main Libraries**: `pyTelegramBotAPI`, `requests`
-* **Data Providers**: 
-* [CoinGecko](https://www.coingecko.com/) (Market Data)
-* [Moralis Web3](https://moralis.io/) (Blockchain Data)
-* **Environment**: Mobile Optimized (Termux) & VPS Ready.
+<p align="center">
+  <strong>A high-performance Telegram bot for real-time crypto price tracking, multi-chain wallet monitoring, and interactive mini-games.</strong>
+</p>
 
 ---
 
-## 📥 Installation Guide
+## 📖 Overview
+**TRAC Network** is an all-in-one Telegram assistant built for the modern crypto enthusiast. By integrating leading APIs like **CoinGecko** and **Moralis**, this bot brings institutional-grade data directly to your mobile device via an intuitive, button-based interface.
 
-1. **Clone Repository**
-```bash
-git clone [https://github.com/leyzd/intercom.git](https://github.com/leyzd/intercom.git)
-cd interco
-m
+---
+
+## ✨ Key Features
+
+### 📊 1. Real-Time Market Intelligence
+Stay ahead of the market with live price updates for major EVM networks:
+- **Supported Chains**: Ethereum, Binance Smart Chain, Polygon, Arbitrum, Base, and more.
+- **Visual Indicators**: Live price changes with 🟢 (Green) and 🔴 (Red) status markers
+
+#Install Dependencies
+
 pip install pyTelegramBotAPI requests
 
+
+#Configuration
+
+Open watcher.py and replace the placeholders with your own credentials:
+​TOKEN: Obtain from @BotFather.
+​MORALIS_API_KEY: Obtain from Moralis Dashboard.
+
+
+#​Run with 24/7 Uptime (PM2)
+
+# Install PM2 via NodeJS
+npm install pm2 -g
+
+# Start the bot
+pm2 start watcher.py --interpreter python
+
+
+
+#Bot Commands TELEGRAM
+
+Command Action
+/start Open the interactive main menu.
+/wallet <addr> <chain> Check balance (e.g., /wallet 0x... bsc).
+/menu Quickly jump to feature selection.
+
+
+🛤️ Future Roadmap
+​[x] CoinGecko Price Integration
+​[x] Moralis Wallet Tracking
+​[x] Lucky Spin Mini-Game
+​[ ] 🕒 Live Gas Tracker (Etherscan API)
+​[ ] 🕒 Crypto News RSS Feed
+​[ ] 🕒 Price Change Alerts
+​<p align="center">
+<b>Built with ❤️ by <a href="https://www.google.com/search?q=https://github.com/leyzd">leyzd</a></b>
+
+<i>Empowering Web3 users, one message at a time.</i>
+</p>
