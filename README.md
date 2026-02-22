@@ -2,43 +2,75 @@ trac addres:trac1zl3gu2jql3jwtcklnkq9qsu5u0hnvkm9pel2h4m0f7ylcfe43r7qlrvjtr
 
 
 
+# <p align="center">🎮 TRAC NETWORK: PIXEL ADVENTURE V1 🍄</p>
 
+<p align="center">
+  <img src="https://capsule-render.vercel.app/render?type=soft&color=auto&height=200&section=header&text=AIRDROP%20WARRIOR&fontSize=70&animation=fadeIn" />
+</p>
 
-# 🚀 TRAC Network: Ultimate Airdrop Hub
-
-An elegant, high-performance Telegram Bot built for **Airdrop Hunters** and **Web3 Enthusiasts**. This bot integrates real-time market data, on-chain tools, and interactive mini-games into one seamless dashboard.
-
-## ✨ Key Features
-
-### 📊 1. Web3 Dashboard
-- **Price Check**: Live cryptocurrency prices (ETH, BNB, etc.) via CoinGecko API.
-- **Gas Tracker**: Real-time Ethereum network fee monitoring.
-- **Wallet Analytics**: Simulated "Wallet Rank" to check airdrop eligibility.
-
-### 🎮 2. Interactive Mini-Games
-- **Dice Roll**: Classic player vs. bot dice game.
-- **Minesweeper**: A high-stakes game where you find diamonds and avoid bombs.
-- **Engagement**: Perfect for community retention and entertainment.
-
-### 📤 3. Secure Transfer Gateway
-- **Non-Custodial**: We never ask for your Private Keys.
-- **Deep Linking**: Seamlessly connects to **MetaMask**, **Trust Wallet**, or **OKX Wallet** for secure transactions.
+<p align="center">
+  <a href="https://t.me/your_bot_link">
+    <img src="https://img.shields.io/badge/TELEGRAM-BOT-blue?style=for-the-badge&logo=telegram&logoColor=white" />
+  </a>
+  <img src="https://img.shields.io/badge/NETWORK-ETHEREUM-red?style=for-the-badge&logo=ethereum&logoColor=white" />
+  <img src="https://img.shields.io/badge/STATUS-ACTIVE%20LEVEL%2099-green?style=for-the-badge&logo=nintendo-switch&logoColor=white" />
+</p>
 
 ---
 
-## 🛠️ Technical Stack
+### 🌟 **MISSION OBJECTIVE**
+> "Transforming the airdrop farming experience into a high-stakes adventure. Track, Play, and Secure your way to the Moon!" 🚀
 
-* **Language:** Python 3.x
-* **Library:** [pyTelegramBotAPI](https://github.com/eternnoir/pyTelegramBotAPI)
-* **Process Manager:** [PM2](https://pm2.keymetrics.io/) (for 24/7 uptime)
-* **Environment:** Termux (Android) / Linux VPS
+### 🛠️ **EQUIPMENT & POWER-UPS**
+
+| 🕹️ MODULE | 🔥 ABILITY | 📝 DESCRIPTION |
+| :--- | :--- | :--- |
+| **Wallet Rank** | `ANALYZE` | Scanning your on-chain history for eligibility. |
+| **Mines Game** | `LOOT` | High-risk, high-reward pixelated mining. |
+| **Gas Tracker** | `MONITOR` | Real-time Gwei alerts to save your gold. |
+| **Secure Pipe** | `WARP` | 1-Click transfer to MetaMask/TrustWallet. |
 
 ---
 
-## 🚀 Installation & Setup
+### 🕹️ **HOW TO PLAY (INSTALLATION)**
 
-### 1. Clone the Repository
 ```bash
-git clone [https://github.com/YOUR_USERNAME/intercom-watcher.git](https://github.com/YOUR_USERNAME/intercom-watcher.git)
-cd intercom-watcher
+# 1. ENTER THE CASTLE
+git clone [https://github.com/YOUR_USER/intercom-watcher.git](https://github.com/YOUR_USER/intercom-watcher.git)
+
+# 2. EQUIP THE TOOLS
+pip install pyTelegramBotAPI requests
+
+# 3. START THE JOURNEY
+pm2 start watcher.py --interpreter python
+
+
+
+
+
+
+
+
+  User Click Start
+       |
+       v
+ [ Dashboard Hub ] <--- (Select Your Item)
+       |
+  +----+----+----+
+  |         |    |
+[Game]    [Scan] [Send]
+  |         |    |
+(Dice)    (Rank) (MetaMask)
+
+
+
+
+
+graph LR
+  A[User /Start] --> B{Dashboard}
+  B --> C[🎮 Mini Games]
+  B --> D[💎 Wallet Analysis]
+  B --> E[📤 Secure Warp]
+  D --> F[Check Eligibility]
+  E --> G[Sign in MetaMask]
 
