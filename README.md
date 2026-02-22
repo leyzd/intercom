@@ -48,7 +48,6 @@ pm2 start watcher.py --interpreter python
 
 
 
-
 ### 📖 **ROAD MAP FOR THE INITIAL DASHBOARD IN MY TELE BOT APP**
 
   User Click Start
@@ -62,12 +61,16 @@ pm2 start watcher.py --interpreter python
   |         |    |
 (Dice)    (Rank) (MetaMask)
 
-## **IN-APP DISPLAY**
+
+
+
+
+# 📱 **IN-APP DISPLAY**
+
+```mermaid
 graph LR
-  A[User /Start] --> B{Dashboard}
-  B --> C[🎮 Mini Games]
-  B --> D[💎 Wallet Analysis]
-  B --> E[📤 Secure Warp]
-  D --> F[Check Eligibility]
-  E --> G[Sign in MetaMask]
+    A[User /Start] --> B{Dashboard}
+    B --> C[🎮 Mini Games]
+    B --> D[💎 Wallet Analysis]
+    B --> E[🎂 Secure Warp]
 
