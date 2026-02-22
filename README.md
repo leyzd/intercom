@@ -4,58 +4,41 @@ trac addres:trac1zl3gu2jql3jwtcklnkq9qsu5u0hnvkm9pel2h4m0f7ylcfe43r7qlrvjtr
 
 
 
-# <p align="center">🚀 TRAC NETWORK ULTIMATE BOT</p>
+# 🚀 TRAC Network: Ultimate Airdrop Hub
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Python-3.10%2B-blue?style=for-the-badge&logo=python&logoColor=white" />
-  <img src="https://img.shields.io/badge/Telegram-Bot-26A5E4?style=for-the-badge&logo=telegram&logoColor=white" />
-  <img src="https://img.shields.io/badge/Web3-Moralis-orange?style=for-the-badge&logo=web3.dot.js&logoColor=white" />
-  <img src="https://img.shields.io/badge/Maintained%3F-Yes-brightgreen?style=for-the-badge" />
-</p>
-
-<p align="center">
-  <strong>A high-performance Telegram bot for real-time crypto price tracking, multi-chain wallet monitoring, and interactive mini-games.</strong>
-</p>
-
----
-
-## 📖 Overview
-**TRAC Network** is an all-in-one Telegram assistant built for the modern crypto enthusiast. By integrating leading APIs like **CoinGecko** and **Moralis**, this bot brings institutional-grade data directly to your mobile device via an intuitive interface.
-
----
+An elegant, high-performance Telegram Bot built for **Airdrop Hunters** and **Web3 Enthusiasts**. This bot integrates real-time market data, on-chain tools, and interactive mini-games into one seamless dashboard.
 
 ## ✨ Key Features
 
-### 📊 1. Real-Time Market Intelligence
-Stay ahead of the market with live price updates for major EVM networks:
-* **Supported Chains**: Ethereum, BSC, Polygon, Arbitrum, Base, and more.
-* **Visual Indicators**: Live price changes with 🟢 (Green) and 🔴 (Red) status markers.
-* **Interactive UI**: Navigate markets using modern Inline Keyboards.
+### 📊 1. Web3 Dashboard
+- **Price Check**: Live cryptocurrency prices (ETH, BNB, etc.) via CoinGecko API.
+- **Gas Tracker**: Real-time Ethereum network fee monitoring.
+- **Wallet Analytics**: Simulated "Wallet Rank" to check airdrop eligibility.
 
-### 🔍 2. Multi-Chain Wallet Tracker
-Monitor your on-chain assets without leaving Telegram:
-* **Instant Balance**: Fetch native token balances directly from the blockchain.
-* **Deep Integration**: Powered by Moralis Web3 API for high precision.
+### 🎮 2. Interactive Mini-Games
+- **Dice Roll**: Classic player vs. bot dice game.
+- **Minesweeper**: A high-stakes game where you find diamonds and avoid bombs.
+- **Engagement**: Perfect for community retention and entertainment.
 
-### 🎮 3. Crypto Lucky Spin (Mini-Game)
-Engage your community with a fun, built-in luck-based game.
+### 📤 3. Secure Transfer Gateway
+- **Non-Custodial**: We never ask for your Private Keys.
+- **Deep Linking**: Seamlessly connects to **MetaMask**, **Trust Wallet**, or **OKX Wallet** for secure transactions.
 
 ---
 
 ## 🛠️ Technical Stack
-| Category | Technology |
-| :--- | :--- |
-| **Language** | Python 3.x |
-| **API Framework** | pyTelegramBotAPI (Telebot) |
-| **Market Data** | CoinGecko API |
-| **Blockchain Data** | Moralis Web3 Cloud |
-| **Manager** | PM2 (for 24/7 Uptime) |
+
+* **Language:** Python 3.x
+* **Library:** [pyTelegramBotAPI](https://github.com/eternnoir/pyTelegramBotAPI)
+* **Process Manager:** [PM2](https://pm2.keymetrics.io/) (for 24/7 uptime)
+* **Environment:** Termux (Android) / Linux VPS
 
 ---
 
 ## 🚀 Installation & Setup
 
-### 1. Install Dependencies
+### 1. Clone the Repository
 ```bash
-pip install pyTelegramBotAPI requests
+git clone [https://github.com/YOUR_USERNAME/intercom-watcher.git](https://github.com/YOUR_USERNAME/intercom-watcher.git)
+cd intercom-watcher
 
