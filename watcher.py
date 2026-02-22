@@ -9,6 +9,7 @@ MORALIS_API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub25jZSI6IjQyMzBlNjQ0
 
 bot = telebot.TeleBot(TOKEN)
 
+# --- DATABASE SEDERHANA (HANYA UNTUK HARGA) ---
 EVM_CHAINS = {
     "eth": "ethereum", "bsc": "binancecoin", "polygon": "matic-network",
     "arbitrum": "arbitrum", "optimism": "optimism", "base": "base", "avax": "avalanche-2"
@@ -35,12 +36,12 @@ def get_wallet_balance(address, chain="eth"):
 @bot.message_handler(commands=['start', 'menu'])
 def main_menu(message):
     markup = types.InlineKeyboardMarkup(row_width=2)
-    btn1 = types.InlineKeyboardButton("📊 Prices", callback_data="get_prices")
-    btn2 = types.InlineKeyboardButton("🔍 Wallet", callback_data="wallet_menu")
-    btn3 = types.InlineKeyboardButton("📈 Charts", callback_data="get_charts")
-    btn4 = types.InlineKeyboardButton("🎮 Play Game", callback_data="play_game")
-    markup.add(btn1, btn2, btn3, btn4)
-    bot.send_message(message.chat.id, "🔥 **TRAC NETWORK BOT** 🔥\nPilih fitur:", parse_mode="Markdown", reply_markup=markup)
+    markup.add(
+        types.InlineKeyboardButton("📊 Prices", callback_data="get_prices"),
+        types.InlineKeyboardButton("🔍 Wallet", callback_data="wallet_menu"),
+        types.InlineKeyboardButton("🎮 Lucky Spin", callback_data="play_game")
+    )
+    bot.send_message(message.chat.id, "🔥 **TRAC NETWORK DASHBOARD** 🔥\nSelect a feature:", parse_mode="Markdown", reply_markup=markup)
 
 @bot.callback_query_handler(func=lambda call: True)
 def handle_query(call):
@@ -50,29 +51,31 @@ def handle_query(call):
         text = "📊 **EVM PRICES**\n\n"
         for short, cg_id in EVM_CHAINS.items():
             coin = data.get(cg_id, {})
-            price, change = coin.get('usd', 0), coin.get('usd_24h_change', 0)
-            text += f"{'🟢' if change >= 0 else '🔴'} **{short.upper()}**: `${price:,.2f}`\n"
+            price = coin.get('usd', 0)
+            text += f"• **{short.upper()}**: `${price:,.2f}`\n"
         markup = types.InlineKeyboardMarkup().add(types.InlineKeyboardButton("⬅️ Back", callback_data="back_home"))
         bot.edit_message_text(text, call.message.chat.id, call.message.message_id, parse_mode="Markdown", reply_markup=markup)
 
     elif call.data == "play_game":
-        outcomes = ["🚀 MOON!", "📉 REKT!", "💎 DIAMOND HANDS!", "🦀 SIDEWAYS", "🐳 WHALE!"]
+        outcomes = ["🚀 MOON!", "📉 REKT!", "💎 DIAMOND HANDS!", "🐳 WHALE!"]
         result = random.choice(outcomes)
         text = f"🎰 **LUCKY SPIN** 🎰\n\nResult: **{result}**"
         markup = types.InlineKeyboardMarkup().add(types.InlineKeyboardButton("🎰 Spin Again", callback_data="play_game"), types.InlineKeyboardButton("⬅️ Back", callback_data="back_home"))
         bot.edit_message_text(text, call.message.chat.id, call.message.message_id, parse_mode="Markdown", reply_markup=markup)
 
     elif call.data == "back_home":
-        # Mengirim menu baru agar bersih
         main_menu(call.message)
 
 @bot.message_handler(commands=['wallet'])
 def wallet_check(message):
     parts = message.text.split()
-    if len(parts) < 2: return
+    if len(parts) < 2:
+        bot.reply_to(message, "Usage: `/wallet [address] [chain]`")
+        return
     balance = get_wallet_balance(parts[1], parts[2].lower() if len(parts) > 2 else "eth")
-    bot.reply_to(message, f"👛 Balance: **{balance:.4f}**" if balance is not None else "❌ Error")
+    bot.reply_to(message, f"👛 Balance: **{balance:.4f}**" if balance is not None else "❌ API Error")
 
 if __name__ == "__main__":
+    print("Bot is running...")
     bot.infinity_polling()
 
