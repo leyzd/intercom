@@ -62,3 +62,4 @@ graph TD
     | [Tasks] [Gas]  [Price]|
     +-----------------------+
 
+> 🤖 **Access the Bot:** `@Tracmintbot`
